@@ -14,20 +14,32 @@ const SimpleInput = (props) => {
 
   const inputHandler = (e) => {
     setNameInput(e.target.value);
+
+    if (e.target.value.trim() !== "") {
+      setNameInputValid(true);
+      return;
+    }
+  };
+
+  const nameInputBlurHandler = (e) => {
+    setUserTouchedInput(true);
+
+    if (nameInput.trim() === "") {
+      setNameInputValid(false);
+      return;
+    }
   };
 
   const submitHandler = (e) => {
     e.preventDefault();
     setUserTouchedInput(true);
+
     if (nameInput.trim() === "") {
       setNameInputValid(false);
       return;
     }
 
     setNameInputValid(true);
-    console.log(`This is useState: ${nameInput}`);
-    const enteredName = nameInputRef.current.value;
-    console.log(`This is useRef: ${enteredName}`);
   };
 
   const nameInputIsInvalid = !nameInputValid && userTouchedInput;
@@ -44,6 +56,7 @@ const SimpleInput = (props) => {
           ref={nameInputRef}
           type="text"
           id="name"
+          onBlur={nameInputBlurHandler}
           onChange={inputHandler}
         />
         {nameInputIsInvalid && (

@@ -26,7 +26,7 @@ const useInput = (validateValue) => {
 
   return {
     value: inputValue,
-    isInputValid: isValid,
+    isValid,
     hasError,
     inputChangeHandler,
     inputBlurHandler,
@@ -36,14 +36,14 @@ const useInput = (validateValue) => {
 
 export default useInput;
 
-// Add State
-// Create States
-// Check States
-// Add Handlers to take the value
-// Add onChange on the form
-// Add SubmitHandler
-// Add Reset handler to clear form
-// Add function to the components argument
+// Add State *
+// Create States *
+// Check States *
+// Add Handlers to take the value *
+// Add onChange on the form *
+// Add SubmitHandler *
+// Add Reset handler to clear form *
+// Add function to the components argument *
 // Import the custom hook
 // Give names to the things
 // Add specific validation checks (regex etc)

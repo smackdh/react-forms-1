@@ -1,12 +1,28 @@
 import React, { useState, useEffect } from "react";
 
+const regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
 const SimpleInput = (props) => {
   const [nameInput, setNameInput] = useState("");
-  const [userTouchedInput, setUserTouchedInput] = useState(false);
+  const [nameInputTouched, setNameInputTouched] = useState(false);
+  const [emailInputTouched, setEmailInputTouched] = useState(false);
   const [emailInput, setEmailInput] = useState("");
+  const [formIsValid, setFormIsValid] = useState(false);
 
   const enteredNameisValid = nameInput.trim() !== "";
-  const nameInputIsInvalid = !enteredNameisValid && userTouchedInput;
+  const enteredEmailisValid =
+    emailInput.trim() !== "" && emailInput.trim().match(regex);
+
+  const nameInputIsInvalid = !enteredNameisValid && nameInputTouched;
+  const emailInputIsInvalid = !enteredEmailisValid && emailInputTouched;
+
+  useEffect(() => {
+    if (enteredNameisValid && enteredEmailisValid) {
+      setFormIsValid(true);
+    } else {
+      setFormIsValid(false);
+    }
+  }, [enteredNameisValid, enteredEmailisValid]);
 
   const nameInputHandler = (e) => {
     setNameInput(e.target.value);
@@ -17,24 +33,31 @@ const SimpleInput = (props) => {
   };
 
   const nameInputBlurHandler = (e) => {
-    setUserTouchedInput(true);
+    setNameInputTouched(true);
+  };
+
+  const emailInputBlurHandler = (e) => {
+    setEmailInputTouched(true);
   };
 
   const submitHandler = (e) => {
     e.preventDefault();
-    setUserTouchedInput(true);
+    setNameInputTouched(true);
+    setEmailInputTouched(true);
 
     if (!enteredNameisValid) {
       return;
     }
 
     setNameInput("");
-    setUserTouchedInput(false);
+    setNameInputTouched(false);
+    setEmailInputTouched(false);
   };
 
-  const nameInputClasses = nameInputIsInvalid
-    ? "form-control invalid"
-    : "form-control";
+  const nameInputClasses =
+    nameInputIsInvalid || emailInputIsInvalid
+      ? "form-control invalid"
+      : "form-control";
 
   return (
     <form onSubmit={submitHandler}>
@@ -52,7 +75,7 @@ const SimpleInput = (props) => {
         <input
           type="text"
           id="email"
-          onBlur={nameInputBlurHandler}
+          onBlur={emailInputBlurHandler}
           onChange={emailInputHandler}
         />
         {nameInputIsInvalid && (
@@ -60,7 +83,7 @@ const SimpleInput = (props) => {
         )}
       </div>
       <div className="form-actions">
-        <button disabled={!formValid}>Submit</button>
+        <button disabled={!formIsValid}>Submit</button>
       </div>
     </form>
   );

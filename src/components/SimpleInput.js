@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const SimpleInput = (props) => {
   const [nameInput, setNameInput] = useState("");
   const [userTouchedInput, setUserTouchedInput] = useState(false);
+  const [emailInput, setEmailInput] = useState("");
 
   const enteredNameisValid = nameInput.trim() !== "";
   const nameInputIsInvalid = !enteredNameisValid && userTouchedInput;

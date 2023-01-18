@@ -3,10 +3,9 @@ import React, { useState, useEffect } from "react";
 const regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
 const SimpleInput = (props) => {
-  const [nameInput, setNameInput] = useState("");
-  const [nameInputTouched, setNameInputTouched] = useState(false);
   const [emailInputTouched, setEmailInputTouched] = useState(false);
   const [emailInput, setEmailInput] = useState("");
+
   const [formIsValid, setFormIsValid] = useState(false);
 
   const enteredNameisValid = nameInput.trim() !== "";

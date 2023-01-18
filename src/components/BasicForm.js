@@ -44,9 +44,11 @@ const BasicForm = (props) => {
   const submitHandler = (event) => {
     event.preventDefault();
 
-    if (!nameHasError || !lastNameHasError || !emailHasError) {
+    if (!formIsValid) {
       return;
     }
+
+    console.log("Submitted");
 
     nameReset();
     lastNameReset();
@@ -77,6 +79,7 @@ const BasicForm = (props) => {
             type="text"
             id="name"
           />
+          {nameHasError && <p className="error-text">Enter a name.</p>}
         </div>
         <div className={lastNameInputClasses}>
           <label htmlFor="lastname">Last Name</label>
@@ -87,9 +90,9 @@ const BasicForm = (props) => {
             type="text"
             id="lastname"
           />
+          {lastNameHasError && <p className="error-text">Enter a last name.</p>}
         </div>
       </div>
-      {lastNameHasError ? <p>Enter a full name.</p> : ""}
       <div className={emailInputClasses}>
         <label htmlFor="email">E-Mail Address</label>
         <input
@@ -99,8 +102,8 @@ const BasicForm = (props) => {
           type="text"
           id="email"
         />
+        {emailHasError && <p className="error-text">Enter a real email.</p>}
       </div>
-      {emailHasError ? <p>Enter a real email.</p> : ""}
       <div className="form-actions">
         <button disabled={!formIsValid}>Submit</button>
       </div>

@@ -8,14 +8,12 @@ const SimpleInput = (props) => {
   const enteredNameisValid = nameInput.trim() !== "";
   const nameInputIsInvalid = !enteredNameisValid && userTouchedInput;
 
-  let formValid = false;
-
-  if (enteredNameisValid) {
-    formValid = true;
-  }
-
-  const inputHandler = (e) => {
+  const nameInputHandler = (e) => {
     setNameInput(e.target.value);
+  };
+
+  const emailInputHandler = (e) => {
+    setEmailInput(e.target.value);
   };
 
   const nameInputBlurHandler = (e) => {
@@ -46,7 +44,16 @@ const SimpleInput = (props) => {
           type="text"
           id="name"
           onBlur={nameInputBlurHandler}
-          onChange={inputHandler}
+          onChange={nameInputHandler}
+        />
+      </div>
+      <div className={nameInputClasses}>
+        <label htmlFor="email">Your Email</label>
+        <input
+          type="text"
+          id="email"
+          onBlur={nameInputBlurHandler}
+          onChange={emailInputHandler}
         />
         {nameInputIsInvalid && (
           <p className="error-text">Input a valid name!!</p>

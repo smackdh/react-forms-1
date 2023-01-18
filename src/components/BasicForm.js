@@ -1,10 +1,11 @@
 import useInput from "../hooks/input-hook";
+import React, { useEffect } from 'react'
 
 const BasicForm = (props) => {
   const {
     value: nameInputValue,
     isInputValid: isNameValid,
-    hasError,
+    hasError: nameHasError,
     inputChangeHandler: nameChangeHandler,
     inputBlurHandler: nameBlurHandler,
     reset: nameReset,
@@ -12,16 +13,26 @@ const BasicForm = (props) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
+
+    nameReset();
   };
+
+  const nameInputClasses = !isNameValid ? "form-control invalid" : "form-control "};
+
 
   return (
     <form onSubmit={submitHandler}>
       <div className="control-group">
-        <div className="form-control">
+        <div className={nameInputClasses}>
           <label htmlFor="name">First Name</label>
-          <input type="text" id="name" />
+          <input
+            onBlur={nameBlurHandler}
+            onChange={nameChangeHandler}
+            type="text"
+            id="name"
+          />
         </div>
-
+        {nameHasError ? <p>Enter a name.</p> : ""}
         <div className="form-control">
           <label htmlFor="name">Last Name</label>
           <input type="text" id="name" />

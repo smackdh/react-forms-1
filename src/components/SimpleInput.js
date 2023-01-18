@@ -13,9 +13,19 @@ const SimpleInput = (props) => {
     value: enteredName,
     hasError: nameInputHasError,
     isValid: enteredNameIsValid,
-    inputHandler: nameChangedHandler,
+    inputHandler: inputChangeHandler,
     inputBlurHandler: nameBlurHandler,
+    reset: resetNameInput,
   } = useInput((value) => value.trim() !== "");
+
+  const {
+    value: enteredEmail,
+    hasError: emailInputHasError,
+    inValid: enteredEmailIsValid,
+    inputHandler: emailInputChangeHandler,
+    inputBlurHandler: emaiLBlurHandler,
+    reset: resetEmailInput,
+  } = useInput((value) => value.trim().match(regex));
 
   const enteredEmailisValid =
     emailInput.trim() !== "" && emailInput.trim().match(regex);
@@ -44,9 +54,7 @@ const SimpleInput = (props) => {
     if (!nameInputHasError) {
       return;
     }
-
-    setNameInput("");
-    setNameInputTouched(false);
+    resetNameInput();
     setEmailInputTouched(false);
   };
 
@@ -63,9 +71,10 @@ const SimpleInput = (props) => {
           type="text"
           id="name"
           onBlur={nameBlurHandler}
-          onChange={nameChangedHandler}
+          onChange={inputChangeHandler}
         />
       </div>
+      {nameInputHasError && <p className="error-text">Input a valid name!!</p>}
       <div className={nameInputClasses}>
         <label htmlFor="email">Your Email</label>
         <input
@@ -74,9 +83,6 @@ const SimpleInput = (props) => {
           onBlur={emailInputBlurHandler}
           onChange={emailInputHandler}
         />
-        {nameInputHasError && (
-          <p className="error-text">Input a valid name!!</p>
-        )}
       </div>
       <div className="form-actions">
         <button disabled={!formIsValid}>Submit</button>

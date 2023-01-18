@@ -53,15 +53,15 @@ const BasicForm = (props) => {
     emailReset();
   };
 
-  const nameInputClasses = isNameValid
+  const nameInputClasses = nameHasError
     ? "form-control invalid"
     : "form-control";
 
-  const lastNameInputClasses = isLastNameValid
+  const lastNameInputClasses = lastNameHasError
     ? "form-control invalid"
     : "form-control";
 
-  const emailInputClasses = isEmailValid
+  const emailInputClasses = emailHasError
     ? "form-control invalid"
     : "form-control";
 
